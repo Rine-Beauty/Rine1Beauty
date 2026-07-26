@@ -4,9 +4,8 @@
   "license": "MIT",
   "scripts": {
     "preinstall": "",
-    "build": "pnpm run typecheck && pnpm -r --if-present run build",
+    "build": "vite build",
     "typecheck:libs": "tsc --build",
-    "build": "vite build"
   },
   "private": true,
   "devDependencies": {
