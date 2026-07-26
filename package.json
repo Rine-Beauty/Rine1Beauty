@@ -5,7 +5,7 @@
   "scripts": {
     "preinstall": "",
     "build": "vite build",
-    "typecheck:libs": "tsc --build",
+    "typecheck:libs": "tsc --build"
   },
   "private": true,
   "devDependencies": {
