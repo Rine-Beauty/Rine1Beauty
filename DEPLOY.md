@@ -14,6 +14,22 @@
 
 ---
 
+## 0. قبل ما ترفع عالـ GitHub — خطوة إجبارية
+
+المشروع ما فيه `pnpm-lock.yaml` (لازم يتولّد عندك بعد التعديلات). لازم تعمل
+هاد قبل أول push:
+
+```bash
+pnpm install
+```
+
+هاد بيولّد ملف `pnpm-lock.yaml` — **لازم ترفعه مع باقي الكود على GitHub**
+(مش موجود بـ `.gitignore`، فراح ينرفع تلقائياً لو استخدمت `git add .`).
+بدون هاد الملف، بعض منصات الاستضافة (Cloudflare مثلاً) ممكن تستخدم أداة
+تنصيب غلط (زي `bun`) وتتجاهل بنية الـ workspace بالكامل.
+
+---
+
 ## 1. قاعدة البيانات (Neon)
 
 1. أنشئ حساب على neon.tech وأنشئ مشروع جديد.
@@ -68,7 +84,7 @@
    - **Root Directory**: (اتركه فاضي — جذر الـ repo، لأنه monorepo)
    - **Build Command**:
      ```
-     pnpm install && pnpm --filter @workspace/api-server... run build
+     pnpm install && pnpm run build:backend
      ```
    - **Start Command**:
      ```
@@ -94,8 +110,13 @@
    - **Framework preset**: Vite
    - **Build command**:
      ```
-     pnpm install && pnpm --filter @workspace/rine-beauty run build
+     pnpm install && pnpm run build:frontend
      ```
+     > ⚠️ **مهم**: Cloudflare أحياناً بيعبّي هاد الحقل تلقائياً بأمر افتراضي (زي
+     > `pnpm run build`) لما يكتشف إنه مشروع Vite — وهاد الأمر الافتراضي غلط
+     > لمشروعنا (بيحاول يعمل typecheck للمشروع كامل ومش بس الفرونت اند). لازم
+     > تتأكد إنك **كتبت الأمر يدوياً** بالحقل وضغطت حفظ، مش بس اعتمدت على القيمة
+     > المقترحة.
    - **Build output directory**: `artifacts/rine-beauty/dist/public`
 4. بعد النشر، الموقع رح يشتغل عادي، وأي طلب لـ `/api/*` رح ينعمله proxy تلقائياً
    على الباك اند بفضل ملف `_redirects` — يعني المتصفح بيشوف كل شي كأنه نفس
